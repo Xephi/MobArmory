@@ -1,0 +1,14 @@
+Entity:
+  Zombie:
+    Weapon: 276
+    Helmet: 310
+    Chestplate: 311
+    Leggings: 312
+    Boots: 313
+  Skeleton:
+    Weapon: 261
+    Helmet: 310
+    Chestplate: 311
+    Leggings: 312
+    Boots: 313
+itemCanBeDrop: false
