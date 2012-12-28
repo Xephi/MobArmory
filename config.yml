@@ -12,13 +12,13 @@ Entity:
     Leggings: 312
     Boots: 313
   PigZombie:
-    Weapon: 276
+    Weapon: 283
     Helmet: 310
     Chestplate: 311
     Leggings: 312
     Boots: 313
   WitherSkeleton:
-    Weapon: 0
+    Weapon: 272
     Helmet: 310
     Chestplate: 311
     Leggings: 312
