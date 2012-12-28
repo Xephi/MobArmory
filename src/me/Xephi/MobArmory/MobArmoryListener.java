@@ -1,7 +1,9 @@
 package me.Xephi.MobArmory;
 
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.EventHandler;
@@ -20,32 +22,68 @@ public class MobArmoryListener implements Listener {
 
 	@EventHandler (priority = EventPriority.HIGHEST)
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
-		if (event.isCancelled() || (!(event.getEntity() instanceof Zombie) && !(event.getEntity() instanceof Skeleton))) {
+		if (event.isCancelled()) {
 			return;
 		}
+		
+		if (!(event.getEntity() instanceof Zombie) && !(event.getEntity() instanceof Skeleton)) {
+			return;
+		}
+		
+		if (MobArmory.disabledWorlds.contains(event.getEntity().getWorld().getName())) {
+			return;
+		}
+		
 		if (event.getEntity() instanceof Zombie) {
-			setWeapon(event.getEntity(), new ItemStack(MobArmory.zombieWeapon));
-			if (isHelmet(MobArmory.zombieHelmet))
-				setHelmet(event.getEntity(), new ItemStack(MobArmory.zombieHelmet));
-			if (isChestplate(MobArmory.zombieChestPlate))
-				setChestplate(event.getEntity(), new ItemStack(MobArmory.zombieChestPlate));
-			if (isLeggings(MobArmory.zombieLeggings))
-				setLeggings(event.getEntity(), new ItemStack(MobArmory.zombieLeggings));
-			if (isBoots(MobArmory.zombieBoots))
-				setBoots(event.getEntity(), new ItemStack(MobArmory.zombieBoots));
+			Zombie zombie = (Zombie) event.getEntity();
+			if (zombie.getType() == EntityType.ZOMBIE) {
+				setWeapon(event.getEntity(), new ItemStack(MobArmory.zombieWeapon));
+				if (isHelmet(MobArmory.zombieHelmet))
+					setHelmet(event.getEntity(), new ItemStack(MobArmory.zombieHelmet));
+				if (isChestplate(MobArmory.zombieChestPlate))
+					setChestplate(event.getEntity(), new ItemStack(MobArmory.zombieChestPlate));
+				if (isLeggings(MobArmory.zombieLeggings))
+					setLeggings(event.getEntity(), new ItemStack(MobArmory.zombieLeggings));
+				if (isBoots(MobArmory.zombieBoots))
+					setBoots(event.getEntity(), new ItemStack(MobArmory.zombieBoots));
+			} else {
+				setWeapon(event.getEntity(), new ItemStack(MobArmory.pigzombieWeapon));
+				if (isHelmet(MobArmory.pigzombieHelmet))
+					setHelmet(event.getEntity(), new ItemStack(MobArmory.pigzombieHelmet));
+				if (isChestplate(MobArmory.pigzombieChestPlate))
+					setChestplate(event.getEntity(), new ItemStack(MobArmory.pigzombieChestPlate));
+				if (isLeggings(MobArmory.pigzombieLeggings))
+					setLeggings(event.getEntity(), new ItemStack(MobArmory.pigzombieLeggings));
+				if (isBoots(MobArmory.pigzombieBoots))
+					setBoots(event.getEntity(), new ItemStack(MobArmory.pigzombieBoots));
+			}
 		}
 		
 		if (event.getEntity() instanceof Skeleton) {
-			setWeapon(event.getEntity(), new ItemStack(MobArmory.skeletonWeapon));
-			if (isHelmet(MobArmory.skeletonHelmet))
-				setHelmet(event.getEntity(), new ItemStack(MobArmory.skeletonHelmet));
-			if (isChestplate(MobArmory.skeletonChestPlate))
-				setChestplate(event.getEntity(), new ItemStack(MobArmory.skeletonChestPlate));
-			if (isLeggings(MobArmory.skeletonLeggings))
-				setLeggings(event.getEntity(), new ItemStack(MobArmory.skeletonLeggings));
-			if (isBoots(MobArmory.skeletonBoots))
-				setBoots(event.getEntity(), new ItemStack(MobArmory.skeletonBoots));
+			Skeleton skeleton = (Skeleton) event.getEntity();
+			if (skeleton.getSkeletonType() == SkeletonType.NORMAL) {
+				setWeapon(event.getEntity(), new ItemStack(MobArmory.skeletonWeapon));
+				if (isHelmet(MobArmory.skeletonHelmet))
+					setHelmet(event.getEntity(), new ItemStack(MobArmory.skeletonHelmet));
+				if (isChestplate(MobArmory.skeletonChestPlate))
+					setChestplate(event.getEntity(), new ItemStack(MobArmory.skeletonChestPlate));
+				if (isLeggings(MobArmory.skeletonLeggings))
+					setLeggings(event.getEntity(), new ItemStack(MobArmory.skeletonLeggings));
+				if (isBoots(MobArmory.skeletonBoots))
+					setBoots(event.getEntity(), new ItemStack(MobArmory.skeletonBoots));
+			} else {
+				setWeapon(event.getEntity(), new ItemStack(MobArmory.witherskeletonWeapon));
+				if (isHelmet(MobArmory.witherskeletonHelmet))
+					setHelmet(event.getEntity(), new ItemStack(MobArmory.witherskeletonHelmet));
+				if (isChestplate(MobArmory.witherskeletonChestPlate))
+					setChestplate(event.getEntity(), new ItemStack(MobArmory.witherskeletonChestPlate));
+				if (isLeggings(MobArmory.witherskeletonLeggings))
+					setLeggings(event.getEntity(), new ItemStack(MobArmory.witherskeletonLeggings));
+				if (isBoots(MobArmory.witherskeletonBoots))
+					setBoots(event.getEntity(), new ItemStack(MobArmory.witherskeletonBoots));
+			}
 		}
+		
 	}
 
 	public static void setWeapon(LivingEntity mob, ItemStack item){

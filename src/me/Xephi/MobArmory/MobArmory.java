@@ -1,6 +1,7 @@
 package me.Xephi.MobArmory;
 
 import java.io.File;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -14,8 +15,11 @@ public class MobArmory extends JavaPlugin{
 	public FileConfiguration config;
 	public final Logger log = Logger.getLogger("Minecraft");
 	public static int zombieWeapon, zombieHelmet, zombieChestPlate, zombieLeggings, zombieBoots, 
-	skeletonWeapon, skeletonHelmet, skeletonChestPlate, skeletonLeggings, skeletonBoots;
+	skeletonWeapon, skeletonHelmet, skeletonChestPlate, skeletonLeggings, skeletonBoots,
+	pigzombieWeapon, pigzombieHelmet, pigzombieChestPlate, pigzombieLeggings, pigzombieBoots,
+	witherskeletonWeapon, witherskeletonHelmet, witherskeletonChestPlate, witherskeletonLeggings, witherskeletonBoots;
 	public static boolean itemCanBeDrop;
+	public static List<String> disabledWorlds;
 	
 	@Override
 	public void onDisable() {
@@ -55,7 +59,23 @@ public class MobArmory extends JavaPlugin{
 			skeletonLeggings = (Integer) config.get("Entity.Skeleton.Leggings");
 			skeletonBoots = (Integer) config.get("Entity.Skeleton.Boots");
 			skeletonWeapon = (Integer) config.get("Entity.Skeleton.Weapon");
+			pigzombieWeapon = (Integer) config.get("Entity.PigZombie.Weapon");
+			pigzombieHelmet = (Integer) config.get("Entity.PigZombie.Helmet");
+			pigzombieChestPlate = (Integer) config.get("Entity.PigZombie.Chestplate");
+			pigzombieLeggings = (Integer) config.get("Entity.PigZombie.Leggings");
+			pigzombieBoots = (Integer) config.get("Entity.PigZombie.Boots");
+			witherskeletonHelmet = (Integer) config.get("Entity.WitherSkeleton.Helmet");
+			witherskeletonChestPlate = (Integer) config.get("Entity.WitherSkeleton.Chestplate");
+			witherskeletonLeggings = (Integer) config.get("Entity.WitherSkeleton.Leggings");
+			witherskeletonBoots = (Integer) config.get("Entity.WitherSkeleton.Boots");
+			witherskeletonWeapon = (Integer) config.get("Entity.WitherSkeleton.Weapon");
 			itemCanBeDrop = config.getBoolean("itemCanBeDrop");
+			if (!config.contains("disabledWorlds")) {
+				config.set("disabledWorlds", "[]");
+				config.getStringList("disabledWorlds").add("put_here_disabled_worlds");
+				saveConfig();
+			}
+			disabledWorlds = config.getStringList("disabledWorlds");
 		} catch (NullPointerException ex) {
 			
 		}
